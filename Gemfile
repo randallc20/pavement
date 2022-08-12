@@ -2,9 +2,10 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.7.4"
-
+gem "geocoder"
 gem "devise"
 gem "sassc-rails"
+gem "money-rails", "~>1.12"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.3", ">= 7.0.3.1"
@@ -58,6 +59,9 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "rspec-rails", "~> 5.1", ">= 5.1.2"
+  gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
+  gem "factory_bot_rails"
+  gem "pry-rails"
 end
 
 group :development do
