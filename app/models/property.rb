@@ -3,7 +3,7 @@
 class Property < ApplicationRecord
   include Countriable
 
-  CLEANING_FEE = 5_000.freeze
+  CLEANING_FEE = 0.freeze
   CLEANING_FEE_MONEY = Money.new(CLEANING_FEE)
   SERVICE_FEE_PERCENTAGE = (0.08).freeze
 
@@ -32,16 +32,26 @@ class Property < ApplicationRecord
   has_many :reserved_users, through: :reservations, source: :user
 
   scope :city, ->(city) { where("lower(city) like ?", "%#{city.downcase}%") }
-  scope :country_code, ->(country_code) { where("lower(country_code) like ?", "%#{country_code.downcase}%") }
-  scope :between_dates, -> (checkin, checkout) do
-    joins(:reservations).
-      where.not("reservations.checkin_date < ?", Date.strptime(checkin, Date::DATE_FORMATS[:us_short_date])).
-      where.not("reservations.checkout_date > ?", Date.strptime(checkout, Date::DATE_FORMATS[:us_short_date]))
-  end
+  scope :country_code,
+        ->(country_code) {
+          where("lower(country_code) like ?", "%#{country_code.downcase}%")
+        }
+  scope :between_dates,
+        ->(checkin, checkout) {
+          joins(:reservations)
+            .where.not(
+              "reservations.checkin_date < ?",
+              Date.strptime(checkin, Date::DATE_FORMATS[:us_short_date])
+            )
+            .where.not(
+              "reservations.checkout_date > ?",
+              Date.strptime(checkout, Date::DATE_FORMATS[:us_short_date])
+            )
+        }
 
   def address
     # [address_1, address_2, city, state, country_name].compact.join(', ')
-    [state, country_name].compact.join(', ')
+    [state, country_name].compact.join(", ")
   end
 
   def default_image
@@ -56,9 +66,19 @@ class Property < ApplicationRecord
 
   def available_dates
     date_format = "%b %e"
-    next_reservation = reservations.future_reservations.order(checkout_date: :desc).first
-    return Date.tomorrow.strftime(date_format)..Date.today.end_of_year.strftime(date_format) if next_reservation.nil?
+    next_reservation =
+      reservations.future_reservations.order(checkout_date: :desc).first
+    if next_reservation.nil?
+      return(
+        Date.tomorrow.strftime(date_format)..Date.today.end_of_year.strftime(
+          date_format
+        )
+      )
+    end
 
-    next_reservation.checkout_date.strftime(date_format)..Date.today.end_of_year.strftime(date_format)
+    next_reservation.checkout_date.strftime(date_format)..Date
+      .today
+      .end_of_year
+      .strftime(date_format)
   end
 end

@@ -11,7 +11,6 @@ RSpec.describe "ReservationPayments", type: :request do
       checkin_date: "07/12/2022",
       checkout_date: "08/12/2022",
       subtotal: "100",
-      cleaning_fee: "50",
       service_fee: "12.24",
       total: "162.24"
     }
@@ -19,9 +18,15 @@ RSpec.describe "ReservationPayments", type: :request do
 
   before do
     sign_in user
-    allow(Stripe::Customer).to receive(:retrieve).and_return(double(id: "user_id"))
-    allow(Stripe::Customer).to receive(:create_source).and_return(double(id: "card_id"))
-    allow(Stripe::Charge).to receive(:create).and_return(double(id: "charge_id"))
+    allow(Stripe::Customer).to receive(:retrieve).and_return(
+      double(id: "user_id")
+    )
+    allow(Stripe::Customer).to receive(:create_source).and_return(
+      double(id: "card_id")
+    )
+    allow(Stripe::Charge).to receive(:create).and_return(
+      double(id: "charge_id")
+    )
   end
 
   describe "POST create" do
