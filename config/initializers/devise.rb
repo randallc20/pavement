@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'd6ba70df4b78a60839ab77aa18ead1ee7832f3ff6cc147fbdd9059700556213069838177c140d204124e9e9a4293ea575b68e21280df4488dc8e4fac7b4e87b3'
+  # config.secret_key = '3c537875456cbc0b4ab90366cce507cbd7d64ed24f90d1b2f2a0f68b6bc02ee4e1da0f5254fad66d72f3a6993f6d6258daa0e977a855c6870ed03ac8a1450aa8'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -24,8 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender =
-    "please-change-me-at-config-initializers-devise@example.com"
+  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -37,7 +36,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require "devise/orm/active_record"
+  require 'devise/orm/active_record'
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -127,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '3fcbe0275a6ac0ea46788ce0967388e1398d9dd93ca7d248a57df23a7f045191e86335ff2c8eca194d282a044950ba386df98d6da1db828e2fbabd1f0bc82dba'
+  # config.pepper = '0a1abec3d115838370b26cce422406c5d46078606a3fd14d8fba3a7b24f86ec751be781b67edaf0f6033cbcba3976a4da513659e0bba3a0bb9e229403858d361'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -264,7 +263,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  config.navigational_formats = ["*/*", :html, :turbo_stream]
+  config.navigational_formats = ['*/*', :html, :turbo_stream]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
