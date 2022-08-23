@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Pavement</title>
+    <title>Vacation Homes & Condo Rentals - Airbnb - Airbnb</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -9,12 +9,20 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= favicon_link_tag asset_path("airbnb-favicon.png") %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker.min.css">
 
-    <%= favicon_link_tag asset_path("road.png") %>
+    <% if controller_name == "reservations" && action_name == "new" %>
+      <%= stripe_javascript_tag %>
+    <% end %>
+
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvvIQqvV3xQK7kRl5aip-MEZPfDqQwWtg">
+    </script>
   </head>
 
   <body>
-      <%= render "layouts/header" %>
-      <%= yield %>
+    <%= render "layouts/header" %>
+    <%= yield %>
   </body>
 </html>
